@@ -1,8 +1,11 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
+
   let taskTypes = [
-    {id : -1, text : "All Tasks"},
-    {id : 1, text : "Completed Tasks"},
-    {id : 0, text : "Incompleted Tasks"},
+    { id: -1, text: "All Tasks" },
+    { id: 1, text: "Completed Tasks" },
+    { id: 0, text: "Incompleted Tasks" },
   ];
 
   let selectedTask = -1;
@@ -10,17 +13,21 @@
 
 <div class="sidebar">
   <div class="add-buttons">
-    <div class="btn-add-task">Add Task</div>
-    <div class="btn-add-member">Add Member</div>
+    <div class="btn-add-task" on:click={()=>dispatch('toggleTaskDrawer')}>Add Task</div>
+    <div class="btn-add-member" on:click={()=>dispatch('toggleMemberDrawer')}>Add Member</div>
   </div>
 
   <div class="separater" />
 
   <div class="task-types">
     {#each taskTypes as task (task.id)}
-      <li 
-      on:click={()=> selectedTask = task.id}
-      data-id={task.id} class:selected={selectedTask === task.id}>{task.text}</li>
+      <li
+        on:click={() => (selectedTask = task.id)}
+        data-id={task.id}
+        class:selected={selectedTask === task.id}
+      >
+        {task.text}
+      </li>
     {/each}
   </div>
 </div>
@@ -41,17 +48,17 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px;
+    user-select: none;
   }
   .btn-add-task,
   .btn-add-member {
-    width: 60px;
-    height: 40px;
     background-color: rgb(221, 57, 90);
     color: rgb(223, 210, 210);
     padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: center;
     cursor: pointer;
+    width: 33%;
   }
   .btn-add-member:hover {
     background-color: crimson;
@@ -75,14 +82,17 @@
     width: 100%;
     margin-top: 10px;
     text-align: left;
+    display: flex;
   }
   li::before {
     content: "";
     background-color: lightgrey;
     width: 10px;
-    height: 100%;
-    padding: 2px;
-    margin-right: 10px;
+    height: 10px;
+    font-size: 24px;
+    border-radius: 50%;
+    margin-right: 8px;
+    align-self: center;
   }
 
   li:hover {
