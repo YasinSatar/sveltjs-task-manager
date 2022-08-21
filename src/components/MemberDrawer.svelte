@@ -2,16 +2,30 @@
     import {fly} from "svelte/transition";
     import { createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher();
+    import {members} from "../stores/store"
 
     export let memberDrawer;
+
+    let newmember;
+    let valid=false, error = "";
+    const handleSubmit = () =>{
+    if(newmember.trim().length<3){
+        error = "Member name must be at least 3 chars";
+        return false;
+    }
+    $members = [...$members,{id: $members.length, name:newmember}];
+    error = "";
+    newmember= "";
+    }
 </script>
 
 {#if memberDrawer}
     <div class="drawer" transition:fly={{ x:200, duration:1000}}>
         <span on:click={() => dispatch("toggleMemberDrawer")}>X</span>
         <h1>Add Member</h1>
-        <form on:submit|preventDefault>
-            <input type="text" placeholder="Member Name" />
+        <form on:submit|preventDefault = {handleSubmit}>
+            <input on:input={()=> error= (newmember.trim().length<2)? error  : ""  } type="text" placeholder="Member Name" bind:value={newmember} />
+            <p class="error">{error}</p>
             <button type="submit"> Submit Member</button>
         </form>
     </div>
@@ -30,6 +44,11 @@
         flex-direction: column;
         align-items: center;
     }
+    @media screen and (max-width:768px){
+        .drawer {
+            width: 40vw;
+        }  
+    }
     h1 {
         color: rgb(54, 52, 52);
     }
@@ -39,12 +58,13 @@
     }
     input,
     button {
-        flex: 1 1 auto;
+        flex: 1 1 fit-content;
         border-radius: 5px;
         margin-top: 10px;
         border: unset;
         padding: 5px 10px;
         line-height: 1.5em;
+        width: 100%;
     }
     button {
         background-color: crimson;
@@ -63,5 +83,9 @@
     }
     span:hover {
         color: black;
+    }
+
+    .error{
+        color :red;
     }
 </style>

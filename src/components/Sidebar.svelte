@@ -44,11 +44,17 @@
     display: flex;
     flex-direction: column;
   }
+  @media screen and (max-width:768px){
+        .sidebar {
+            width: 40vw;
+        }  
+    }
   .add-buttons {
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px;
     user-select: none;
+    flex-wrap: wrap;
   }
   .btn-add-task,
   .btn-add-member {
@@ -58,8 +64,20 @@
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
-    width: 33%;
+
+    min-width:100px;
+    margin-bottom:10px;
   }
+  @media screen and (max-width:1024px){
+    .add-buttons {
+      flex-direction: column;
+    }
+    .btn-add-task,
+    .btn-add-member{
+            width: 80%;
+            margin-bottom:10px;
+        }  
+    }
   .btn-add-member:hover {
     background-color: crimson;
   }

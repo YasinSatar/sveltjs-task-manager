@@ -2,6 +2,7 @@
     import {fly} from "svelte/transition";
     import { createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher();
+    import {members} from "../stores/store"
 
     export let taskDrawer;
 </script>
@@ -14,9 +15,9 @@
             <input type="text" placeholder="Task Title" />
             <textarea cols="23" rows="4" />
             <select>
-                <option value="-1">All Team</option>
-                <option value="1">Yasin</option>
-                <option value="2">Selin</option>
+                {#each $members as member (member.id) }
+                <option value={member.id}>{member.name}</option>
+                {/each}
             </select>
             <input type="date" />
             <button type="submit"> Submit Task</button>
@@ -37,6 +38,11 @@
         flex-direction: column;
         align-items: center;
     }
+    @media screen and (max-width:768px){
+        .drawer {
+            width: 40vw;
+        }  
+    }
     h1 {
         color: rgb(54, 52, 52);
     }
@@ -54,6 +60,7 @@
         border: unset;
         padding: 5px 10px;
         line-height: 1.5em;
+        width: 100%;
     }
     button {
         background-color: crimson;
