@@ -1,12 +1,9 @@
 <script>
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
+  import {taskTypes} from "../stores/store";
 
-  let taskTypes = [
-    { id: -1, text: "All Tasks" },
-    { id: 1, text: "Completed Tasks" },
-    { id: 0, text: "Incompleted Tasks" },
-  ];
+
 
   let selectedTask = -1;
 </script>
@@ -20,9 +17,12 @@
   <div class="separater" />
 
   <div class="task-types">
-    {#each taskTypes as task (task.id)}
+    {#each $taskTypes as task (task.id)}
       <li
-        on:click={() => (selectedTask = task.id)}
+        on:click={() => {
+          selectedTask = task.id
+          dispatch('changeTask',task.id)
+        }}
         data-id={task.id}
         class:selected={selectedTask === task.id}
       >

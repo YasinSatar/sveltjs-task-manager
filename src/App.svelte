@@ -7,17 +7,26 @@
 
   let taskDrawer = false;
   let memberDrawer = false;
+  let selectedTaskId= -1;
 
+  const handleTask = (e) =>{
+    selectedTaskId = e.detail;
+  }
 
 </script>
 
 <main>
   <div class="dashboard">
     <div class="sidebar">
-      <Sidebar on:toggleTaskDrawer={() => (taskDrawer = !taskDrawer)} on:toggleMemberDrawer={() => (memberDrawer = !memberDrawer)} />
+      <Sidebar 
+      on:toggleTaskDrawer={() => (taskDrawer = !taskDrawer)} 
+      on:toggleMemberDrawer={() => (memberDrawer = !memberDrawer)}
+      on:changeTask={handleTask}
+      
+      />
     </div>
     <div class="content">
-      <ShowAllTasks />
+      <ShowAllTasks {selectedTaskId} />
     </div>
   </div>
   
