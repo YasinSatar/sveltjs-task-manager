@@ -12,13 +12,14 @@
     // -1 = All Tasks, 0 = inCompletedTasks, 1 = completedTasks
     export let selectedTaskId;
 
-    let selectedTask;
+    //That's what I'm saying in the storejs file.
+    /* let selectedTask;
     function changeTaskType(selectedTaskId) {
         selectedTask = $taskTypes.find(
             (task) => task.id === selectedTaskId
         ).task;
         return $selectedTask;
-    }
+    } */
 </script>
 
 <div class="all-tasks">
