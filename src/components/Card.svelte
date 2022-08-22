@@ -2,18 +2,21 @@
     import { members, allTasks } from "../stores/store";
     export let task;
 
-    const handleComplete = (id) =>{
-        allTasks.update(currentTasks =>{
-            let completedTask = $allTasks.find(task=>task.id ===id)
-            completedTask.isCompleted =!completedTask.isCompleted;
+    const handleComplete = (id) => {
+        allTasks.update((currentTasks) => {
+            let completedTask = $allTasks.find((task) => task.id === id);
+            completedTask.isCompleted = !completedTask.isCompleted;
             return currentTasks;
-        })
-    }
-    const handleRemove = (id) =>{
-        allTasks.update(currentTasks =>{
-            return currentTasks.filter(task=>task.id !==id)
-        })
-    }
+        });
+    };
+    const handleRemove = (id) => {
+        allTasks.update((currentTasks) => {
+            return currentTasks.filter((task) => task.id !== id);
+        });
+    };
+
+    //let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    let options = { year: 'numeric', month: 'numeric', day: 'numeric' };
 </script>
 
 <div
@@ -23,10 +26,12 @@
         handleComplete(task.id);
     }}
 >
-    <span class="btn-delete"  
-    on:click={() => {
-        handleRemove(task.id);
-    }}>X</span>
+    <span
+        class="btn-delete"
+        on:click={() => {
+            handleRemove(task.id);
+        }}>X</span
+    >
     <h5>{task.title}</h5>
     <p>{task.description}</p>
     <div class="members">
@@ -38,7 +43,7 @@
             {/each}
         {/each}
     </div>
-    <p>{task.deadline}</p>
+    <p>{new Date(task.deadline).toLocaleDateString("tr-TR", options)}</p>
 </div>
 
 <style>
@@ -53,7 +58,7 @@
         border-radius: 15px;
         box-shadow: 2px 2px rgb(198, 186, 186);
         text-align: left;
-        cursor:pointer;
+        cursor: pointer;
         user-select: none;
         line-height: 10px;
     }
@@ -70,23 +75,21 @@
         content: ",";
         margin-left: -2px;
     }
-    .completed{
-
+    .completed {
         background-color: #99f8b6;
     }
     .completed :not(.btn-delete) {
         text-decoration: line-through;
     }
-    .btn-delete{
-        margin-right:-20px;
-        margin-top:-20px;
-        float:right;
+    .btn-delete {
+        margin-right: -20px;
+        margin-top: -20px;
+        float: right;
         font-size: 14px;
-        padding:3px 10px;
-        background-color:white;
+        padding: 3px 10px;
+        background-color: white;
         border-radius: 50%;
-        border:1px solid #EAEAEA;
+        border: 1px solid #eaeaea;
         line-height: 1.5rem;
     }
- 
 </style>
