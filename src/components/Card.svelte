@@ -15,8 +15,8 @@
         });
     };
 
-    //let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    let options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    //let dateFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    let dateFormatOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
 </script>
 
 <div
@@ -43,7 +43,7 @@
             {/each}
         {/each}
     </div>
-    <p>{new Date(task.deadline).toLocaleDateString("tr-TR", options)}</p>
+    <p>{new Date(task.deadline).toLocaleDateString("tr-TR", dateFormatOptions)}</p>
 </div>
 
 <style>
